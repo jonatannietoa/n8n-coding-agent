@@ -1,0 +1,29 @@
+// filename: src/main/java/com/example/dictionary/excipient/repository/ExcipientRepository.java
+package com.example.dictionary.excipient.repository;
+
+import com.example.dictionary.excipient.model.Excipient;
+import java.util.List;
+import java.util.UUID;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ExcipientRepository extends JpaRepository<Excipient, UUID> {
+
+  String SEARCH_QUERY =
+      """
+            SELECT DISTINCT excipient.* FROM excipient
+            LEFT JOIN excipientsynonym ON excipient.excipientid = excipientsynonym.excipientid
+            WHERE NOT excipient.deprecated AND (
+                excipient.name LIKE CONCAT('%', UPPER(:term), '%') OR
+                excipient.prettyname ILIKE CONCAT('%', :term, '%') OR
+                excipient.canonicalname LIKE CONCAT('%', LOWER(:term), '%') OR
+                excipientsynonym.synonym ILIKE CONCAT('%', :term, '%')
+            )
+            """;
+
+  @Query(value = SEARCH_QUERY, nativeQuery = true)
+  List<Excipient> search(@Param("term") String term);
+}
