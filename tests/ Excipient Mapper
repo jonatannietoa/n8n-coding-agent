@@ -1,0 +1,15 @@
+// filename: src/main/java/com/example/dictionary/excipient/mapper/ExcipientMapper.java
+package com.example.dictionary.excipient.mapper;
+
+import com.example.dictionary.excipient.dto.ExcipientDto;
+import com.example.dictionary.excipient.model.Excipient;
+import java.util.List;
+import org.mapstruct.Mapper;
+
+@Mapper(componentModel = "spring")
+public interface ExcipientMapper {
+
+  ExcipientDto toDto(Excipient excipient);
+
+  List<ExcipientDto> toDtoList(List<Excipient> excipients);
+}
