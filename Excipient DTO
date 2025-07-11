@@ -1,0 +1,14 @@
+// filename: src/main/java/com/example/dictionary/excipient/dto/ExcipientDto.java
+package com.example.dictionary.excipient.dto;
+
+import java.util.UUID;
+import lombok.Data;
+
+@Data
+public class ExcipientDto {
+  private UUID excipientId;
+  private String name;
+  private String prettyName;
+  private String canonicalName;
+  private boolean deprecated;
+}
