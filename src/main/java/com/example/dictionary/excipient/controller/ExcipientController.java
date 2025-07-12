@@ -1,0 +1,25 @@
+package com.example.dictionary.excipient.controller;
+
+import com.example.dictionary.excipient.model.ExcipientDto;
+import com.example.dictionary.excipient.service.ExcipientService;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/dictionaries/api-salt")
+@RequiredArgsConstructor
+public class ExcipientController {
+
+    private final ExcipientService excipientService;
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ExcipientDto>> searchExcipients(@RequestParam("q") String query) {
+        List<ExcipientDto> results = excipientService.searchExcipients(query);
+        return ResponseEntity.ok(results);
+    }
+}
