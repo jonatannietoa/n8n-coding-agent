@@ -1,0 +1,10 @@
+This solution implements the required search endpoint `/dictionaries/api-salt/search`. The code is organized into a standard Spring Boot layered architecture: Controller, Service, and Repository.
+
+-   **`ExcipientController`**: Exposes the `GET` endpoint and handles web requests.
+-   **`ExcipientService`**: Contains the core business logic, orchestrating the data retrieval and mapping.
+-   **`ExcipientRepository`**: Defines the data access layer and includes a custom JPQL query to perform the complex search.
+-   **Entities (`Excipient`, `ExcipientSynonym`)**: Model the database tables.
+-   **DTO (`ExcipientDto`)**: Defines the shape of the data returned by the API, ensuring only necessary fields are exposed.
+-   **Mapper (`ExcipientMapper`)**: Provides an efficient, boilerplate-free way to convert `Excipient` entities to `ExcipientDto` objects.
+
+The search logic uses a single JPQL query that efficiently searches across multiple fields in both the `excipient` and `excipientsynonym` tables while excluding deprecated entries.
